@@ -43,7 +43,7 @@ var modal = function(t, m, b, opts){
   var html = [
   '<div class="modal" id="_modalGen">',
     '<div class="modal-header">',
-      '<a href="#" class="close js-dismiss">×</a>',
+      '<a href="#" class="close js-dismiss">x</a>',
       '<h3>' + title + '</h3>',
     '</div>',
     '<div class="modal-body">',
@@ -71,7 +71,7 @@ var modal = function(t, m, b, opts){
     if (!buttons.length){
       buttons = [buttons];
     }
-    for (var i=0; i<buttons.length; i++){
+    for (var i=buttons.length-1; i>=0; i--){
       var b = buttons[i],
       text = b.text || "Button",
       type = (b.type) ? b.type + " btn" : "btn",
@@ -82,10 +82,15 @@ var modal = function(t, m, b, opts){
       a.innerHTML = text;
       a.href = "#";
       
-      // Register what happens after clicking this button
+      // Register what happens after clicking this button, but always close the modal
+      $(a).unbind().on('click', function(){
+        $('#_modalGen').modal('hide');
+        $('#_modalGen').remove();
+      });
       if (callback){
-        $(a).on('click', callback);
+        $(a).on('click', callback);  
       }
+      
       ret.push(a);
     }
     return ret;
