@@ -1,23 +1,33 @@
 /*
- * Modal manager - allows creation of Bootstrap modal dialogs with optional params 
+ * Bootstrap Modal manager v1.0
+ * Allows creation of Bootstrap modal dialogs with optional params
+ * Licensed under the MIT license
+ * @author cianclarke
+ * https://github.com/cianclarke/Bootstrap-Modal-Manager
+ *  
  * @param t : title string
  * @param m : message string or HTML
- * @param b : array of buttons, like [{text: 'Cancel'}, {text: 'Save', type: 'primary'}]
+ * @param b : array of buttons, like [{text: 'Cancel'}, {text: 'Save', type: 'primary', callback: function(){}}]
  * where type is one of primary, info, success, danger
  * @param opts: object of options from boostrap modal, namedly backdrop and keyboard
  * 
  * An example with a close button, no backdrop and no keyboard controls:
  * var buttons = [
  *  {
- *    text: 'Save'
+ *    text: 'Save',
+ *    type: 'primary'
  *  },
  *  {
- *    text: 'Close'
+ *    text: 'Close',
+ *    callback: function(){
+ *      // This is an ID appended onto all popups we make. This call will hide the window & remove it.
+ *      $('#_modalGen').modal('hide');
+ *      $('.modal').remove();
+ *    }
  *  }
  * ];
  * modal("My Modal Dialog", "My Modal Message", buttons, { backdrop: false, keyboard: false });
  */
-
 var modal = function(t, m, b, opts){
   var title = t || "",
   message = m || "",
